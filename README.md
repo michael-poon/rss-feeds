@@ -1,6 +1,6 @@
-Generate two RSS feeds for the stock no list in the below two environment variables:
+Generate two stock news RSS feeds for the stock no listed in the below two environment variables:
 
-STOCK_LIST_MY=00001,00005
-
+##.env sample\
+STOCK_LIST_MY=00001,00005\
 STOCK_LIST_WATCH=00939,01398
 
