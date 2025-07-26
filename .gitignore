@@ -1,10 +1,13 @@
+# Python cache
 __pycache__/
 *.pyc
+
+# Environment & log files
 .env
 *.log
 
-# 忽略 RSS XML 檔案
-Stock/*.xml
+# 🔻 忽略 Stock folder 裡面所有 XML（包括子目錄）
+Stock/**/*.xml
 
-# 忽略 stock list text file
-Stock/*.txt
+# 🔻 忽略 Stock folder 裡面所有 TXT（包括子目錄）
+Stock/**/*.txt
