@@ -1,0 +1,35 @@
+name: Update RSS Feed
+
+on:
+  schedule:
+    - cron: '15 7 * * *'  # 每日香港時間下午3點15分（UTC+8）
+    - cron: '45 15 * * *'  # 每日香港時間晚上11點45分（UTC+8）
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.13'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run feed generator
+      run: |
+        python Stock/stocks.py
+
+    - name: Deploy to gh-pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./feed_output
+        publish_branch: gh-pages
