@@ -21,7 +21,7 @@ load_dotenv()
 
 # 設定 logging format 同 level
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.WARNING,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
