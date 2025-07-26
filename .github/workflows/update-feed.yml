@@ -34,6 +34,9 @@ jobs:
       run: |
         touch Stock/.nojekyll
 
+    - name: Add index.html
+      run: echo "" > Stock/index.html
+
     - name: Deploy to gh-pages
       uses: peaceiris/actions-gh-pages@v3
       with:
