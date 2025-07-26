@@ -19,10 +19,14 @@ MAX_RETRIES = 5
 
 load_dotenv()
 
+# 讀取環境變數 DEBUG，如果無就預設為 False
+DEBUG = os.getenv("DEBUG", "").lower() == "true"
+
 # 設定 logging format 同 level
 logging.basicConfig(
-    level=logging.WARNING,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.INFO if DEBUG else logging.WARNING,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    force=True  # Python 3.8+，確保唔會被其他 handler override
 )
 
 
