@@ -25,12 +25,14 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
+
 def parse_stock_list(env_var):
     raw = os.getenv(env_var, "")
     return [s.strip() for s in raw.split(",") if s.strip()]
 
-# 🧩 擷取新聞資料
+
 def fetch_news(stock_code):
+    # 🧩 擷取新聞資料
     url = f"https://www.aastocks.com/tc/stocks/analysis/stock-aafn/{stock_code}/0/hk-stock-news/1"
     headers = {"User-Agent": "Mozilla/5.0"}
     retries = 0
@@ -116,6 +118,7 @@ def generate_rss(all_news, output_filename="combined_stock_news.xml"):
     fg.rss_file(output_path)
     logging.info(f"✅ RSS feed 已儲存：{output_filename}")
 
+
 def process_feed(stock_list, output_filename):
     all_news = []
     for stock_code in stock_list:
@@ -144,6 +147,7 @@ def main():
 
     process_feed(my_stocks, "stocks_rss.xml")
     process_feed(watchlist, "watch_rss.xml")
+
 
 if __name__ == "__main__":
     main()
