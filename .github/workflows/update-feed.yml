@@ -24,6 +24,9 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run feed generator
+      env:
+        STOCK_LIST_MY: ${{ secrets.STOCK_LIST_MY }}
+        STOCK_LIST_WATCH: ${{ secrets.STOCK_LIST_WATCH }}
       run: |
         python Stock/stocks.py
 
