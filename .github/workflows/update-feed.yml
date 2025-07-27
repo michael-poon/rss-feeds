@@ -30,16 +30,16 @@ jobs:
       run: |
         python Stock/stocks.py
 
-    - name: Add .nojekyll
+    - name: Prepare deploy folder
       run: |
-        touch Stock/.nojekyll
-
-    - name: Add index.html
-      run: echo "" > Stock/index.html
+        mkdir deploy
+        cp Stock/*.xml deploy/
+        touch deploy/.nojekyll
+        echo "<html><body><h1>RSS Feeds</h1></body></html>" > deploy/index.html
 
     - name: Deploy to gh-pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./Stock
+        publish_dir: ./deploy
         publish_branch: gh-pages
