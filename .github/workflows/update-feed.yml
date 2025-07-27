@@ -2,8 +2,8 @@ name: Update RSS Feed
 
 on:
   schedule:
-    - cron: '15 7 * * *'  # 每日香港時間下午3點15分（UTC+8）
-    - cron: '45 15 * * *'  # 每日香港時間晚上11點45分（UTC+8）
+    - cron: '7 7 * * *'  # 每日香港時間下午3點07分（UTC+8）
+    - cron: '42 15 * * *'  # 每日香港時間晚上11點42分（UTC+8）
   workflow_dispatch:
 
 jobs:
