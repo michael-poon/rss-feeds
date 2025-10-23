@@ -50,6 +50,9 @@ def fetch_news(stock_code):
 
             content_div = soup.find(
                 "div", class_="content", id="aafn-search-c1")
+            if not content_div:
+                logging.warning(f"找不到新聞內容區塊 for {stock_code}")
+                return []
             news_blocks = content_div.find_all("div", attrs={"ref": True})
 
             news_list = []
