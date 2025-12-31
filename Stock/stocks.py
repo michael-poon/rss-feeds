@@ -35,9 +35,12 @@ def parse_stock_list(env_var):
     return [s.strip() for s in raw.split(",") if s.strip()]
 
 
-def fetch_news(stock_code):
+def fetch_news(stock_code, region):
     # 🧩 擷取新聞資料
-    url = f"https://www.aastocks.com/tc/stocks/analysis/stock-aafn/{stock_code}/0/hk-stock-news/1"
+    if region == "HK":
+        url = f"https://www.aastocks.com/tc/stocks/analysis/stock-aafn/{stock_code}/0/us-stock-news/1"
+    elif region == "US":
+        url = f"https://www.aastocks.com/tc/usq/quote/stock-news.aspx?symbol={stock_code}"
     headers = {"User-Agent": "Mozilla/5.0"}
     retries = 0
 
@@ -126,11 +129,11 @@ def generate_rss(all_news, output_filename="combined_stock_news.xml"):
     logging.info(f"✅ RSS feed 已儲存：{output_filename}")
 
 
-def process_feed(stock_list, output_filename):
+def process_feed(stock_list, output_filename, region):
     all_news = []
     for stock_code in stock_list:
         logging.info(f"📡 擷取 {stock_code} 的新聞中...")
-        news = fetch_news(stock_code)
+        news = fetch_news(stock_code, region)
         all_news.extend(news)
         time.sleep(random.uniform(2, 5))  # 安全延遲
     generate_rss(all_news, output_filename)
@@ -151,10 +154,11 @@ def main():
 
     my_stocks = parse_stock_list("STOCK_LIST_MY")
     watchlist = parse_stock_list("STOCK_LIST_WATCH")
+    us_stocks = parse_stock_list("STOCK_LIST_US")
 
-    process_feed(my_stocks, "stocks_rss.xml")
-    process_feed(watchlist, "watch_rss.xml")
-
-
+    process_feed(my_stocks, "stocks_rss.xml", "HK")
+    process_feed(watchlist, "watch_rss.xml", "HK")
+    process_feed(us_stocks, "us_stocks_rss.xml", "US")
+    
 if __name__ == "__main__":
     main()
