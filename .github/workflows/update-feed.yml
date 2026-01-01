@@ -27,6 +27,7 @@ jobs:
       env:
         STOCK_LIST_MY: ${{ secrets.STOCK_LIST_MY }}
         STOCK_LIST_WATCH: ${{ secrets.STOCK_LIST_WATCH }}
+        STOCK_LIST_US: ${{ secrets.STOCK_LIST_US }}
       run: |
         python Stock/stocks.py
 
