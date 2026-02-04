@@ -65,7 +65,7 @@ def fetch_news(stock_code, region):
                 summary_tag = block.select_one(".newscontent4")
                 img_tag = block.select_one(".newsImage4a img")
 
-                title = title_tag.text.strip() if title_tag else "（無標題）"
+                title = title_tag.get_text(strip=True) if title_tag and title_tag.get_text(strip=True) else "（無標題）"
                 link = title_tag["href"] if title_tag else "#"
                 if not link.startswith("http"):
                     link = "https://www.aastocks.com" + link
@@ -85,6 +85,13 @@ def fetch_news(stock_code, region):
                 img_url = img_tag["src"] if img_tag and img_tag.has_attr(
                     "src") else None
                 ref_id = block.get("ref")
+
+                #logging.info("Fetched item title: %s", title)
+                #logging.info("Fetched item link: %s", link)
+                #logging.info("Fetched item pubDate: %s", pub_date)
+                #logging.info("Fetched item summary: %s", summary)
+                #logging.info("Fetched item image: %s", img_url)
+                #logging.info("Fetched item guid: %s", ref_id)
 
                 news_list.append({
                     "title": title,
